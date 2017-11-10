@@ -24,13 +24,26 @@
   <div class="col-md-6 omzet">
     <h5>Lessen betaald:<span> € <%= @lessen_betaald = @student.lessons.where(paid: true).length * 30 %></span></h5>
     <h5>Lessen niet betaald:<span> € <%= @student.lessons.where(paid: nil).length %></span></h5>
-    <h5>Praktijk betaald:<span> € <%= @praktijk_betaald = @student.praktijk %></span></h5>
+    <h5>Praktijk examen:<span> € <%= @praktijk_betaald = @student.praktijk %></span></h5>
+    <h5>Theorie examen:<span> € <%= @theorie_betaald = @student.theorie %></span></h5>
     <hr>
-    <% if @praktijk_betaald != nil %>
+
+    <% if @praktijk_betaald != nil && @theorie_betaald != nil %>
+      <h5>Total:<span> € <%= @lessen_betaald + @praktijk_betaald + @theorie_betaald %></span></h5>
+
+    <% elsif @praktijk_betaald == nil && @theorie_betaald == nil  %>
+      <h5>Total:<span> € <%= @lessen_betaald %></span></h5>
+
+    <% elsif @praktijk_betaald != nil && @theorie_betaald == nil  %>
       <h5>Total:<span> € <%= @lessen_betaald + @praktijk_betaald %></span></h5>
+
+    <% elsif @praktijk_betaald == nil && @theorie_betaald != nil  %>
+      <h5>Total:<span> € <%= @lessen_betaald + @theorie_betaald %></span></h5>
+
     <% else %>
       <h5>Total:<span> € <%= @lessen_betaald %></span></h5>
     <% end %>
+
   </div>
 </div>
 <div class="row">

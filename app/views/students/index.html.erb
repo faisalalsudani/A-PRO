@@ -1,8 +1,11 @@
 <div class="row">
 <div class="col-xs-12 col-md-8">
-  <p style="font-weight:600;">Omzet: <span style="font-weight:400;">€ <%= @lessons.where(paid: true).length * 30 %></span></p>
+  <p style="font-weight:600;">Lessen praktijk: <span style="font-weight:400;">€ <%= @a = @lessons.where(paid: true).length * 30 %></span></p>
   <p style="font-weight:600;">Nog te krijgen: <span style="font-weight:400;">€ <%= @lessons.where(paid: nil).length * 30 %></span></p>
-  <p style="font-weight:600;">Praktijk betaald: <span style="font-weight:400;">€ <%= @students.sum("praktijk") %></span></p>
+  <p style="font-weight:600;">Praktijk betaald: <span style="font-weight:400;">€ <%= @b = @students.sum("praktijk") %></span></p>
+  <p style="font-weight:600;">Theorie betaald: <span style="font-weight:400;">€ <%= @c = @students.sum("theorie") %></span></p>
+  <hr>
+  <p style="font-weight:600;">Totaal: <span style="font-weight:400;">€ <%= @a + @b + @c %></span></p>
 </div>
 <div class="col-xs-12 col-md-4">
   <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#exampleModal">
