@@ -5,6 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+source 'https://rubygems.org'
+
+ruby '2.4.1'
+
 # Use Bootstrap for styling
 gem 'bootstrap-sass', '~> 3.3.6'
 # Use Devise for authentication
