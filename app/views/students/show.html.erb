@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-6">
+    <h5><%= @student.name %> / <span>Lessen: <%= @student.lessons.length %></span></h5>
+  </div>
+  <div class="col-md-6">
+    <h5>Betaald: </h5>
+    <h5>Niet betaald: </h5>
+  </div>
+</div>
+<div class="row">
+  <hr>
+  <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#exampleModal">
+    Nieuwe les
+  </button>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nieuwe les</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <%= form_for [@student, @lesson]  do |f| %>
+        <div class="modal-body">
+          <%= f.label :Datum %>
+          <%= f.date_select :date, class: "form-control" %><br><br>
+          <%= f.label :Tijd %>
+          <%= f.time_select :time, class: "form-control" %><br><br>
+          <%= f.label :Betaald %>
+          <%= f.radio_button :paid, "Ja", id: "Ja"%>
+          <br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= f.submit "Create", class: "btn btn-primary add-pair" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

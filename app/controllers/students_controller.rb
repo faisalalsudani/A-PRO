@@ -11,9 +11,9 @@ class StudentsController < ApplicationController
  def create
    @student = Student.new(student_params)
    if @student.save
-     redirect_to @student, notice: "Student created!"
+     redirect_to action: "index", notice: "Student created!"
    else
-     render :new
+     render :index
    end
  end
 
@@ -32,7 +32,7 @@ class StudentsController < ApplicationController
 
  private
  def student_params
-   params.require(:student).permit(:name, :tele, :bsn)
+   params.require(:student).permit(:name, :phone, :bsn_num)
  end
 
 end
