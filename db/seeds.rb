@@ -1,3 +1,3 @@
-Student.destroy_all
+User.destroy_all
 
-admin = Student.create!(name: "A Pro Rijschool", email: "apro@rijschoo.nl", password: "@proRij_200", admin: true)
+admin = User.create!(email: "apro@rijschoo.nl", password: "@proRij_200")
