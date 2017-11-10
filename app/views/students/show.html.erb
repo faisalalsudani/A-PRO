@@ -3,8 +3,8 @@
     <h5><%= @student.name %> / <span>Lessen: <%= @student.lessons.length %></span></h5>
   </div>
   <div class="col-md-6">
-    <h5>Betaald: </h5>
-    <h5>Niet betaald: </h5>
+    <h5>Betaald: <%= @student.lessons.where(paid: true).length * 30 %> euro </h5>
+    <h5>Niet betaald: <%= @student.lessons.where(paid: nil).length %> </h5>
   </div>
 </div>
 <div class="row">
@@ -40,4 +40,39 @@
       </div>
     </div>
   </div>
+</div>
+<br>
+<br>
+<div class="row">
+
+  <table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>Les nummer</th>
+      <th>Dag</th>
+      <th>Tijd</th>
+      <th>Betaald</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @student.lessons.each_with_index do |les, index| %>
+    <tr>
+      <th scope="row"><%= index + 1 %></th>
+      <td><%= les.date %></td>
+      <%= les.lessen_betaald %>
+      <td><%= les.time.strftime("%H:%M %a") %></td>
+      <% if les.paid === nil %>
+        <td style="color:red;">Niet betaald</td>
+        <td><%= link_to "Betalen", [@student, les, paid: true], method: :patch, class: "btn btn-primary" %></td>
+      <% else %>
+        <td style="color:lightgrey;">Betaald</td>
+      <% end %>
+      <td>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
 </div>
