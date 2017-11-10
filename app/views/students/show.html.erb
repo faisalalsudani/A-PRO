@@ -1,10 +1,36 @@
 <div class="row">
   <div class="col-md-6">
     <h5><%= @student.name %> / <span>Lessen: <%= @student.lessons.length %></span></h5>
+    <button type="button" class="btn btn-block btn-alert" data-toggle="modal" data-target="#updatestudent">
+      Student informatie updaten
+    </button>
+    <div class="modal fade" id="updatestudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Student informatie updaten</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <%= render "form" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div class="col-md-6">
-    <h5>Betaald: <%= @student.lessons.where(paid: true).length * 30 %> euro </h5>
-    <h5>Niet betaald: <%= @student.lessons.where(paid: nil).length %> </h5>
+  <div class="col-md-6 omzet">
+    <h5>Lessen betaald:<span> € <%= @lessen_betaald = @student.lessons.where(paid: true).length * 30 %></span></h5>
+    <h5>Lessen niet betaald:<span> € <%= @student.lessons.where(paid: nil).length %></span></h5>
+    <h5>Praktijk betaald:<span> € <%= @praktijk_betaald = @student.praktijk %></span></h5>
+    <hr>
+    <% if @praktijk_betaald != nil %>
+      <h5>Total:<span> € <%= @lessen_betaald + @praktijk_betaald %></span></h5>
+    <% else %>
+      <h5>Total:<span> € <%= @lessen_betaald %></span></h5>
+    <% end %>
   </div>
 </div>
 <div class="row">
@@ -63,8 +89,7 @@
       <%= les.lessen_betaald %>
       <td><%= les.time.strftime("%H:%M %a") %></td>
       <% if les.paid === nil %>
-        <td style="color:red;">Niet betaald</td>
-        <td><%= link_to "Betalen", [@student, les, paid: true], method: :patch, class: "btn btn-primary" %></td>
+        <td><%= link_to "Niet betaald", [@student, les, paid: true], method: :patch, class: "niet-betaald" %></td>
       <% else %>
         <td style="color:lightgrey;">Betaald</td>
       <% end %>
