@@ -28,6 +28,20 @@ class LessonsController < ApplicationController
   end
 
 
+  def update
+    @student = Student.find(params[:student_id])
+
+    @student.lessons.each do |les|
+      if les.paid == nil
+        les.paid = true
+        les.save
+        redirect_to @student, notice:"Les is betaald!"
+      else les.paid == true
+        puts "test"
+      end
+    end
+  end
+
   def destroy
     @lesson = Lesson.find(params[:id])
     @lesson.destroy
