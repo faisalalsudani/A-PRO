@@ -1,3 +1,65 @@
 <div class="row">
+
+<div class="col-md-8">
   <h4>Alle leerlingen</h4>
+</div>
+<div class="col-md-4">
+  <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#exampleModal">
+    Nieuwe leerling
+  </button>
+</div>
+
+<br>
+<br>
+<br>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nieuwe student toevoegen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_for Student.new  do |f| %>
+      <div class="modal-body">
+        <%= f.label :naam %>
+        <%= f.text_field :name, class: "form-control" %><br>
+        <%= f.label :Telefoon %>
+        <%= f.text_field :phone, class: "form-control" %><br>
+        <%= f.label :BSN %>
+        <%= f.text_field :bsn_num, class: "form-control" %>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= f.submit "Create", class: "btn btn-primary add-pair" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+  <table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>#</th>
+      <th>Naam</th>
+      <th>Telefoon</th>
+      <th>BSN</th>
+      <th>Aantal lessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each_with_index do |student, index| %>
+    <tr>
+      <th scope="row"><%= index + 1 %></th>
+      <td><%= link_to student.name, student_path(student) %></td>
+      <td><%= student.phone %></td>
+      <td><%= student.bsn_num %></td>
+      <td><%= student.lessons.length %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 </div>
