@@ -22,8 +22,8 @@
 
   </div>
   <div class="col-md-6 omzet">
-    <h5>Lessen betaald:<span> € <%= @lessen_betaald = @student.lessons.where(paid: true).length * 30 %></span></h5>
-    <h5>Lessen niet betaald:<span><%= @student.lessons.where(paid: nil).length %></span></h5>
+    <h5>Lessen betaald:<span> € <%= @lessen_betaald = @student.lessen_betaald %></span></h5>
+    <h5>Lessen niet betaald:<span><%= @student.lessen_niet_betaald %></span></h5>
     <h5>Praktijk examen:<span> € <%= @praktijk_betaald = @student.praktijk %></span></h5>
     <h5>Theorie examen:<span> € <%= @theorie_betaald = @student.theorie %></span></h5>
     <hr>
@@ -99,7 +99,6 @@
     <tr>
       <th scope="row"><%= index + 1 %></th>
       <td><%= les.date %></td>
-      <%= les.lessen_betaald %>
       <td><%= les.time.strftime("%H:%M %a") %></td>
       <% if les.paid === nil %>
         <td><%= link_to "Niet betaald", [@student, les, paid: true], method: :patch, class: "niet-betaald" %></td>
