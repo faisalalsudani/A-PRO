@@ -14,6 +14,11 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new
   end
 
+  def edit
+    @student = Student.find(params[:student_id])
+    @lesson = @student.lessons.find(params[:id])
+  end
+
   def create
     student = Student.find(params[:student_id])
 
@@ -30,6 +35,13 @@ class LessonsController < ApplicationController
 
   def update
     @student = Student.find(params[:student_id])
+    @lesson = @student.lessons.find(params[:id])
+
+    if @lesson.update_attributes(lesson_params)
+      redirect_to @lesson.student, notice: "Les updated"
+    else
+      render :edit
+    end
 
     @student.lessons.each do |les|
       if les.paid == nil
