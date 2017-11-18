@@ -20,22 +20,7 @@
       </div>
     </div>
 
-    <div class="modal fade" id="updateles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Student informatie updaten</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <%= render "lesson" %>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  <%= @lesson.time_overlap %>
   </div>
   <div class="col-md-6 omzet">
     <h5>Lessen betaald:<span> € <%= @lessen_betaald = @student.lessen_betaald %></span></h5>
@@ -80,9 +65,9 @@
         <%= form_for [@student, @lesson]  do |f| %>
         <div class="modal-body">
           <%= f.label :Datum %>
-          <%= f.date_select :date, class: "form-control" %><br><br>
+          <%= f.date_field :date, class: "form-control" %><br><br>
           <%= f.label :Tijd %>
-          <%= f.time_select :time, class: "form-control" %><br><br>
+          <%= f.time_field :time, class: "form-control" %><br><br>
           <%= f.label :Betaald %>
           <%= f.radio_button :paid, "Ja", id: "Ja"%>
           <br>
@@ -116,15 +101,17 @@
       <th scope="row"><%= index + 1 %>
         <%= link_to "×", student_lesson_path(@student, les), method: :delete, data: {confirm: "Les verwijderen?" }, class: "close1" %>
       </th>
-      <td><%= les.date %></td>
-      <td><%= les.time.strftime("%H:%M %a") %></td>
+      <td><%= les.time.strftime("%a") %> / <%= les.date %></td>
+      <td><%= les.time.strftime("%H:00") %></td>
       <% if les.paid === nil %>
-        <td><%= link_to "Niet betaald", [@student, les, paid: true], method: :patch, class: "niet-betaald" %></td>
+        <td><%= link_to "Niet betaald", [@student, les, lesson: { paid: true }], method: :patch, class: "niet-betaald" %></td>
       <% else %>
         <td style="color:lightgrey;">Betaald</td>
       <% end %>
       <td>
-        <%= link_to 'Edit les', edit_student_lesson_path(@student, les),:class => 'edit_student btn-sm btn-primary' %>
+        <%= link_to edit_student_lesson_path(@student, les) do %>
+          <p><span class="glyphicon glyphicon-edit"></span></p>
+        <% end %>
       </td>
 
       </tr>
