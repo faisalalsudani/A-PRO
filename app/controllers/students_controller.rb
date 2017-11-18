@@ -34,11 +34,6 @@ class StudentsController < ApplicationController
 
  def update
    @student = Student.find(params[:id])
-   if @student.update_attributes(student_params)
-     redirect_to @student.lesson, notice: "Evaluation updated"
-   else
-     render :edit
-   end
 
    if @student.update(student_params)
      redirect_to @student, notice: "student updated"

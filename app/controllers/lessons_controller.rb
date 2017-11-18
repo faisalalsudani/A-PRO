@@ -37,21 +37,15 @@ class LessonsController < ApplicationController
     @student = Student.find(params[:student_id])
     @lesson = @student.lessons.find(params[:id])
 
-    if @lesson.update_attributes(lesson_params)
-      redirect_to @lesson.student, notice: "Les updated"
+    if @lesson.paid.nil?
+      lesson_params[:paid] = true
+      notice = 'Les is betaald!'
     else
-      render :edit
+      notice = 'Les updated'
     end
 
-    @student.lessons.each do |les|
-      if les.paid == nil
-        les.paid = true
-        les.save
-        redirect_to @student, notice:"Les is betaald!"
-      else les.paid == true
-        puts "test"
-      end
-    end
+    @lesson.update_attributes(lesson_params)
+    redirect_to @lesson.student, notice: notice
   end
 
   def destroy
