@@ -25,9 +25,11 @@ class LessonsController < ApplicationController
     @lesson = student.lessons.create(lesson_params)
 
       if @lesson.save
-        redirect_to @lesson.student, notice: "Student created!"
+        redirect_to @lesson.student
+        flash[:success] = "Les is opgeslaagd!"
       else
-        render :new
+        redirect_to @lesson.student
+        flash[:alert] = "Er is al les op deze tijd!"
       end
 
   end
@@ -39,9 +41,9 @@ class LessonsController < ApplicationController
 
     if @lesson.paid.nil?
       lesson_params[:paid] = true
-      notice = 'Les is betaald!'
+      flash[:success] = "Betaald!"
     else
-      notice = 'Les updated'
+      flash[:success] = "Les updated!"
     end
 
     @lesson.update_attributes(lesson_params)
@@ -52,6 +54,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     @lesson.destroy
     redirect_to @lesson.student
+    flash[:alert] = "Les is verwijdert!"
   end
 
 
