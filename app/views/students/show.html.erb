@@ -20,7 +20,6 @@
       </div>
     </div>
 
-  <%= @lesson.time_overlap %>
   </div>
   <div class="col-md-6 omzet">
     <h5>Lessen betaald:<span> € <%= @lessen_betaald = @student.lessen_betaald %></span></h5>
@@ -49,11 +48,11 @@
 </div>
 <div class="row">
   <hr>
-  <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#exampleModal">
+  <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#new_les">
     Nieuwe les
   </button>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="new_les" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -62,12 +61,12 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <%= form_for [@student, @lesson]  do |f| %>
+        <%= form_for [@student, @lesson], :validate => true, remote:true  do |f| %>
         <div class="modal-body">
           <%= f.label :Datum %>
           <%= f.date_field :date, class: "form-control" %><br><br>
           <%= f.label :Tijd %>
-          <%= f.time_field :time, class: "form-control" %><br><br>
+          <%= f.time_field :time, validate: true , class: "form-control" %><br><br>
           <%= f.label :Betaald %>
           <%= f.radio_button :paid, "Ja", id: "Ja"%>
           <br>
