@@ -42,6 +42,9 @@ class LessonsController < ApplicationController
     if @lesson.paid.nil?
       lesson_params[:paid] = true
       flash[:success] = "Les updated!"
+    elsif @lesson.paid == true
+      lesson_params[:paid] = false
+      flash[:success] = "Les updated!"
     else
       flash[:success] = "Les updated!"
     end

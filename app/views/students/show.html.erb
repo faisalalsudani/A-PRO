@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-6">
     <h5><%= @student.name %> / <span>Lessen: <%= @student.lessons.length %></span></h5>
-    <button type="button" class="btn btn-block btn-alert" data-toggle="modal" data-target="#updatestudent">
+    <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#updatestudent">
       Student informatie updaten
     </button>
     <div class="modal fade" id="updatestudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -105,7 +105,7 @@
       <% if les.paid === nil %>
         <td><%= link_to "Niet betaald", [@student, les, lesson: { paid: true }], method: :patch, class: "niet-betaald" %></td>
       <% else %>
-        <td style="color:lightgrey;">Betaald</td>
+        <td style="color:lightgreen;"><%= link_to "Betaald", [@student, les, lesson: { paid: nil }], method: :patch, class: "betaald" %></td>
       <% end %>
       <td>
         <%= link_to edit_student_lesson_path(@student, les) do %>
