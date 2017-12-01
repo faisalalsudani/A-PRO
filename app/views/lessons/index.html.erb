@@ -1,0 +1,7 @@
+<div class="row">
+  <% @students.each_with_index do |student, index| %>
+    <% student.lessons.each do |les| %>
+        <p><%= student.name %> - <%= les.date %> / <%= les.time.strftime("%H:00") %></p>
+    <% end %>
+  <% end %>
+</div>

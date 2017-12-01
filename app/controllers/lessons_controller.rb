@@ -1,6 +1,9 @@
 class LessonsController < ApplicationController
   def index
     @lessons = Lesson.all
+    @students = Student.all
+    # @lesson = student.lessons.find(params[:id])
+    # @today = student.lessons.where(:date == Time.zone.today)
   end
 
   def show
